@@ -1,3 +1,5 @@
 requests==2.25.0
 pytest==6.1.2
 pytest-metrics==0.4
+pytest-selenium==2.0.1
+
