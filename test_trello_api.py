@@ -2,7 +2,6 @@ from conftest import Trello
 import pytest
 import requests
 
-
 TRELLO = Trello()
 
 

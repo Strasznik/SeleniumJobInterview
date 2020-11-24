@@ -10,34 +10,47 @@ Installation
 ---------------
 1. Make sure you have Python 3.x installed on your computer
 2. Download repository
-3. Install packages from requirements.txt file (`pip install -r requiremnts.txt`)
+3. Download Selenium WebDriver adequate to your browser. I was testing my framework with Chrome:  
+`https://chromedriver.chromium.org/downloads`
+3. Install packages from requirements.txt file:  
+`pip install -r requiremnts.txt`
 
-
-How To Run This
+How To Run API Tests
 ---------------
 
-1. From root catalog execute following command:  
-`pytest test_trello.py --menable=True --mtimestamp=True --mlogo=".\static\logo.jpg"`
-2. HTML test results will be created in root directory and will have followin syntax `pytest_metrics_Nov_23_2020_15_07`
+1. To run API tests from root catalog execute following command:  
+`pytest test_trello_api.py --menable=True --mtimestamp=True --mlogo=".\static\logo.jpg"`
+2. HTML test results will be created in root directory and will have following syntax `pytest_metrics_DATE_TIME`
 
-Assumptions and improvements
+How To Run Selenium Tests
+---------------
+
+1. To run Selenium tests from root catalog execute following command:  
+`pytest test_trello_selenium.py --menable=True --mtimestamp=True --mlogo=".\static\logo.jpg" --driver Chrome 
+--driver-path "PATH_TO_YOUR_CHROME_DRIVER"`
+2. HTML test results will be created in root directory and will have following syntax `pytest_metrics_DATE_TIME`
+
+**IMPORTANT NOTICE**
 -------
-1. Objective one says `Create 3 cards on that board` and objective two says `Verify that there are 2 cards on board`. 
-I assumed that this is a typo :)
-2. Objective two says `Please write a selenium test (or equivalent)`. I assumed that "equivalent" does not mean that it
-needs to be GUI based. That is why my testing framework is based on testing backend/API layer. If testing frontend by
-Selenium or similar GUI based tool is required please let me know(!). I will add this solution to my framework.
 
-Comments
+At first, when I was making this testing framework I misunderstood objectives and I assumed that "Objective 2" can be 
+done without Selenium. So I based my whole framework (including negative cases) on API level tests, and these tests 
+are much more polished (as it comes to technical implementation and tests organization) than Selenium tests. As it 
+comes to Selenium platform, I must admit that I was using it last time around 5 years ago, so my solution probably 
+won't be breathtaking, but it works. :) 
+
+Assumptions, improvements and comments
 -------
 
 1. Trello account:  
 `Username: kamilgrzywinski@gmail.com`  
 `Password: Plentific`
 2. Trello key and token are hardcoded. Normally I wouldn't put them in code. I did it to simplify running tests by 
-recruiters. Instead, I would place them in environmental variables (please check conftest.py line 8 and 9). 
-3. Before each test Trello Board is created and then after execution it is removed. If recruiters would like to see
-them, please comment `teardown_method` in test_trello.py file.
-4. Please, be aware that my Atlassian account has limitation for 10 boards. It means that commenting `teardown_method`
-might require manual removal of some board to make it working properly. PS. I could handle this case in code, but its 
-out of scope of this recruitments so I didn't do it.
+recruiters. Instead, I would place them in environmental variables (please check conftest.py line 8-10). 
+3. I assumed that my Trello account on which tests are executed is hermetic environment. That means that in the 
+meantime no one is using it nor creating there boards/lists/cards. Such acctions might impact tests results.
+3. Before each test Trello Board is created and then after execution it is removed (for both API and Selenium tests)
+4. My Atlassian account has limitation for 10 boards. It means that commenting `teardown_method` in API or Selenium 
+tests might require manual removal of some boar(s) to make tests working properly (as I mentioned in point 3 my Trello 
+account should be hermetic). PS. I could handle this situation in code, but its out of scope for this recruitments so 
+I didn't do it.
