@@ -6,10 +6,8 @@ import sys
 class Trello:
 	def __init__(self):
 		# It is better and safer to use environmental variables to store credentials, but for recruitment purpose I hardcoded it.
-		# self.key = os.environ.get("TRELLO_KEY")
-		# self.token = os.environ.get("TRELLO_TOKEN")
-		self.key = "f47a9c4c8d9db8e587491c124dc94774"
-		self.token = "028a02065d11652650044ed57ee1460d177b11ec9c774ffc093a2e6df659c7c1"
+		self.key = os.environ.get("TRELLO_KEY")
+		self.token = os.environ.get("TRELLO_TOKEN")
 		self.key_token = f"?key={self.key}&token={self.token}"
 
 		if self.key is None or self.token is None:
